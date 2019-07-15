@@ -23,7 +23,7 @@ class Animal(object):
 class Dog(Animal):
     def __str__(self):
         animal_data = super().__str__()
-        return f"Specoes: Dog, {animal_data}"
+        return f"Species: Dog, {animal_data}"
 
     def get_sound(self):
         return "Hau Hau"
