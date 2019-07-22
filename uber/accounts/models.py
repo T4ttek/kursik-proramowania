@@ -18,6 +18,7 @@ class Account(BaseModel):
     def name_in_ru(self):
         return self.name
 
+
 class Driver(Account):
     has_driver_license = False
     actual_car = None
@@ -33,5 +34,3 @@ class Car(BaseModel):
 
 class Client(Account):
     discount = 0
-
-
