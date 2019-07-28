@@ -1,4 +1,4 @@
-from utils.models import BaseModel
+from uber.utils.models import BaseModel
 
 
 class Account(BaseModel):
