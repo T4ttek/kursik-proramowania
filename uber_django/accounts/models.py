@@ -20,7 +20,7 @@ class Profile(models.Model):
     user_type = models.IntegerField(choices=USER_TYPES_CHOICES, null=False, default=USER_TYPE_CLIENT)
 
     def __str__(self):
-        return f'User Profile{self.user.username} - {self.user_type}'
+        return f'User Profile {self.user.username} - {self.user_type}'
 
     def is_mature(self):
         now = timezone.now().date()
@@ -28,3 +28,6 @@ class Profile(models.Model):
             return False
         # TODO: fix it to check months and days also
         return now.year - self.birth_date.year >= 18
+
+    def driver_is_free(self):
+        return not self.user.driver_orders.filter(ended_at=None).exists()

@@ -10,11 +10,19 @@ class Order(models.Model):
         (CURRENCY_PLN, 'Polski Złoty'),
     )
 
-    user_driver = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='driver_orders')
+    user_driver = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='driver_orders',
+                                    blank=True)
     user_client = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='client_orders')
-    priec = models.DecimalField(default=0.00, max_digits=8, decimal_places=2)
+    price = models.DecimalField(default=0.00, max_digits=8, decimal_places=2)
     currency = models.CharField(max_length=3, choices=CURRENCY_TYPES, default=CURRENCY_PLN)
     created_at = models.DateTimeField(auto_now_add=True)
+    ended_at = models.DateTimeField(default=None, null=True, blank=True)
 
     def get_price(self):
-        return f'{self.priec} {self.currency}'
+        return f'{self.price} {self.currency}'
+
+    def __str__(self):
+        return f'order{self.id}'
+
+    def is_complete(self):
+        return self.ended_at is not None
